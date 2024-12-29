@@ -1,18 +1,11 @@
 import os
 import random
 from colorama import Fore, Style,init
-palavras = [
-    "amigo", "campo", "mesmo", "grupo", "vezes", "dever", "velho", "carta", "falta", 
-    "baixo", "vindo", "parte", "jeito", "coisa", "valor", "tempo", "livro", "mundo", 
-    "porta", "baixo", "nunca", "linha", "verde", "apenas", "outra", "claro", "pouco", 
-    "junto", "grande", "banho", "limpo", "prado", "bruto", "carro", "casal", "peixe", 
-    "chave", "falso", "longe", "pacto", "roupa", "manso", "velha", "trama", "festa", 
-    "muito", "área", "pedra", "árdua", "ritmo", "treta", "corte", "tempo", "ordem", 
-    "estar", "pare", "vinho", "vento", "metal", "praia", "trevo", "conto", "prazo", 
-    "beira", "crime", "meiga", "sabor", "troca", "tigre", "justa", "sorte", "sonho", 
-    "fruta", "curva", "norte", "tarde", "custo", "anexo", "jovem", "pleno", "lugar", 
-    "piano", "dente", "troco", "redor", "salvo", "malta", "outro", "canal", "ativo", 
-    "laço", "cobra", "barco", "certo", "vinho"]
+
+
+with open(r'Termo-game-\nomes.txt', 'r', encoding='utf-8') as file:
+        palavras = [line.strip() for line in file]
+
 
 def mostrar_menu():
     print('''         
