@@ -1,6 +1,9 @@
 import os
 import jogo1palavra
+import jogo2palavras
 from colorama import Fore, Style,init
+
+#Arquivo princiapal, execute ele para iniciar o jogo.
 
 termo ='''         
    ████████╗███████╗██████╗░███╗░░░███╗░█████╗░
@@ -19,6 +22,8 @@ def mostrar_menu():
 def inicio_jogo(opcao_escolhida,): 
      if opcao_escolhida == 1:
           jogo1palavra.inicio(main)
+     if opcao_escolhida == 2:
+          jogo2palavras.inicio(main)
      
 def regras():
      print("REGRAS:\n1-A palvra sempre vai ter 5 letras\n2-Você tem 6 tentativas pra acertar\n3-As letras com a cor "+Fore.GREEN+"verde"+Style.RESET_ALL+" estão corretas, e as letras "+Fore.LIGHTYELLOW_EX+"amarelas"+Style.RESET_ALL+" estão na posição errada")
@@ -39,10 +44,8 @@ def escolha_opcao():
           opcao_escolhida = int(input("Sua escolha:"))
           if opcao_escolhida == 1:
                inicio_jogo(opcao_escolhida)
-          elif opcao_escolhida ==2:
-               print("Nao ta pronto")
-               input()
-               main()
+          elif opcao_escolhida == 2:
+               inicio_jogo(opcao_escolhida)
           elif opcao_escolhida == 4:
                print("Nao ta pronto")
                input()
