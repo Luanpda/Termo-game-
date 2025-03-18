@@ -13,13 +13,13 @@ termo ='''
    ░░░██║░░░███████╗██║░░██║██║░╚═╝░██║╚█████╔╝
    ░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝░╚════╝░    \n\n'''
 
-
+idioma = "Portugês"
 
 def mostrar_menu():
-    print(Fore.LIGHTCYAN_EX+ termo + Style.RESET_ALL +'           Escolha um opção abaixo👇\n\n  1 Palavra |  2 palavras | 4 palavras | 5 Regras\n\n')
+    print(Fore.LIGHTCYAN_EX+ termo + Style.RESET_ALL +f'           Escolha um opção abaixo👇\n\n  1 Palavra |  2 palavras | 4 palavras | 5 Regras | 6 Mudar Idioma atual:{idioma}\n\n')
 
 
-def inicio_jogo(opcao_escolhida,): 
+def inicio_jogo(opcao_escolhida): 
      if opcao_escolhida == 1:
           jogo1palavra.inicio(main)
      if opcao_escolhida == 2:
@@ -52,6 +52,10 @@ def escolha_opcao():
                main()
           elif opcao_escolhida == 5:
                regras()
+          elif opcao_escolhida == 6:
+               print('não ta pronto')
+               main()
+              
           else:
                op_invalida()
      except:
@@ -60,11 +64,16 @@ def escolha_opcao():
 
 
 
+     
+
+
 
 def main():
-       os.system("cls")
-       mostrar_menu()
-       escolha_opcao()
+
+     os.system("cls")
+     mostrar_menu()
+     escolha_opcao()
+     
 
 if __name__ == '__main__':
      main()

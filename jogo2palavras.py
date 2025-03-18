@@ -1,6 +1,7 @@
 import random
 import os
 import copy
+from collections import Counter
 
 from colorama import Fore, Style, init
 
@@ -31,7 +32,7 @@ def Jogo(letras_usadas,l2,l1,venceu,palavra,palavra2,palavrav,voltarmenu):
      #Variaveis para controlar o jogo
      controle = 0
      controle2 = 0
-     cont = 1
+     
      l = 5
      c = 6
      p1certa = False
@@ -61,26 +62,47 @@ def Jogo(letras_usadas,l2,l1,venceu,palavra,palavra2,palavrav,voltarmenu):
      
           lista = []
           lista2 = []
+          qtd_letras = Counter(palavra)  # Conta a quantidade  de cada letra da palavra em um dicionario
+          qtd_letras2 = Counter(palavra2)  # Conta a quantidade  de cada letra da palavra em um dicionario
+
+
 
           #verifica primeira palavra, com o zip retornando a primeira letra da palavra e da tentativa, e atribuindo respectivamente
           # a letra1 e letra2, e depois comparando e atribuindo as cores
            
-          for i ,(letra1, letra2) in enumerate(zip(palavra,tentativa)):
-               
+          for (letra1, letra2) in zip(palavra,tentativa):
+
                cont = palavra.count(letra2)
-               if letra2 in palavra and letra2 != letra1 and cont > 0:
-                    lista.append(Fore.LIGHTYELLOW_EX+ letra2 + Style.RESET_ALL)
+               if letra2 in palavra and letra2 != letra1:
+                    #adiciona somente a letra a lista, sem cor, a cor amarela e adicionada no proximo for 
+                    lista.append(letra2)
                     letras_usadas.append(Fore.LIGHTMAGENTA_EX+letra2+Style.RESET_ALL)
-                    # listaincerta.insert(i,letra2)
                     
                elif letra1 == letra2:
-                    lista.append(Fore.LIGHTGREEN_EX + letra2 + Style.RESET_ALL)
+                    if qtd_letras[letra2] == 1:
+                         #se houver somente uma letra, adiciona a letra a lista com a cor verde, e subtrai menos 1 na qtd_letras daquela letra
+                         # na posição dela no dicionario
+                         lista.append(Fore.LIGHTGREEN_EX + letra2 + Style.RESET_ALL)
+                         qtd_letras[letra2] -= 1
+                    if qtd_letras[letra2] == 2:
+                         #mesma coisa do de cima 
+                         lista.append(Fore.LIGHTGREEN_EX + letra2 + Style.RESET_ALL)
+                         qtd_letras[letra2] -= 1
                     letras_usadas.append(Fore.LIGHTMAGENTA_EX+letra2+Style.RESET_ALL)
                else:
                     lista.append(letra2)
                     letras_usadas.append(Fore.LIGHTMAGENTA_EX+letra2+Style.RESET_ALL)
 
-          l1 = l1 + letras_usadas
+          for i, (letra1, letra2) in enumerate( zip(palavra,tentativa)):
+               if letra2 in palavra and letra2 != letra1:
+                    if qtd_letras[letra2] == 1:
+                         for letra0 in lista:
+                              if letra0 == letra2:
+                                   lista[i] = (Fore.LIGHTYELLOW_EX + letra2 + Style.RESET_ALL)
+
+
+
+          l1 +=  letras_usadas
          
           for letra in l1:
                if letra not in l2:
@@ -90,16 +112,34 @@ def Jogo(letras_usadas,l2,l1,venceu,palavra,palavra2,palavrav,voltarmenu):
           #verifica segunda palavra
           for  (letra1, letra2) in zip(palavra2,tentativa):
                if letra2 in palavra2 and letra2 != letra1:
-                    lista2.append(Fore.LIGHTYELLOW_EX+ letra2 + Style.RESET_ALL)
-                    letras_usadas.append( Fore.LIGHTMAGENTA_EX+letra2+Style.RESET_ALL)
+                    #adiciona somente a letra a lista, sem cor, a cor amarela e adicionada no proximo for 
+                    lista2.append(letra2)
+                    letras_usadas.append(Fore.LIGHTMAGENTA_EX+letra2+Style.RESET_ALL)
                elif letra1 == letra2:
-                    lista2.append(Fore.LIGHTGREEN_EX + letra2 + Style.RESET_ALL)
+                    if qtd_letras2[letra2] == 1:
+                         #se houver somente uma letra, adiciona a letra a lista com a cor verde, e subtrai menos 1 na qtd_letras daquela letra
+                         # na posição dela no dicionario
+                         lista2.append(Fore.LIGHTGREEN_EX + letra2 + Style.RESET_ALL)
+                         qtd_letras2[letra2] -= 1
+
+                    if qtd_letras2[letra2] == 2:
+                         #mesma coisa do de cima 
+                         lista2.append(Fore.LIGHTGREEN_EX + letra2 + Style.RESET_ALL)
+                         qtd_letras2[letra2] -= 1
                     letras_usadas.append(Fore.LIGHTMAGENTA_EX+letra2+Style.RESET_ALL)
                else:
                     lista2.append(letra2)
                     letras_usadas.append(Fore.LIGHTMAGENTA_EX+letra2+Style.RESET_ALL)
 
-          l1 = l1 + letras_usadas
+
+          for i, (letra1, letra2) in enumerate( zip(palavra2,tentativa)):
+               if letra2 in palavra2 and letra2 != letra1:
+                    if qtd_letras2[letra2] == 1:
+                         for letra0 in lista2:
+                              if letra0 == letra2:
+                                   lista2[i] = (Fore.LIGHTYELLOW_EX + letra2 + Style.RESET_ALL)
+
+          l1 +=  letras_usadas
  
           for letra in l1:
                if letra not in l2:
@@ -107,7 +147,7 @@ def Jogo(letras_usadas,l2,l1,venceu,palavra,palavra2,palavrav,voltarmenu):
           
           
           if tentativa == palavra and controle == 0:
-               cont = palavra.count(letra)
+               
                p1certa = True
                listac = copy.deepcopy(lista)
                controle += 1
