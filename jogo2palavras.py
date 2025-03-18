@@ -1,6 +1,7 @@
 import random
 import os
 import copy
+import idioma
 from collections import Counter
 
 from colorama import Fore, Style, init
@@ -11,6 +12,23 @@ with open(r'C:\Users\bulky\Desktop\Python\Termo\Termo-game-\nomes.txt', 'r', enc
 
 
 def inicio(voltarmenu):
+     idioma_jogo = idioma.get_idioma()  
+
+# É preciso trocar o endereço da pasta para o que esta no seu computador, até o arquivo nomes.txt
+
+     if idioma_jogo == 'Português':
+         caminho_arquivo = r'C:\Users\bulky\Desktop\Python\Termo\Termo-game-\nomes.txt'
+     else:
+         caminho_arquivo = r'C:\Users\bulky\Desktop\Python\Termo\Termo-game-\names.txt'
+
+    # Carrega a lista de palavras do arquivo correto
+     with open(caminho_arquivo, 'r', encoding='utf-8') as file:
+        palavras = [line.strip().upper() for line in file]
+        palavra2 = [line.strip().upper() for line in file]
+
+
+
+
      letras_usadas = []
      l2 = []
      l1=[]
@@ -21,7 +39,7 @@ def inicio(voltarmenu):
      palavrav = Fore.LIGHTGREEN_EX + palavra + Style.RESET_ALL
      palavra2 = random.choice(palavras).upper()
      #Descomente para mostrar a resposta no jogo👇
-     # print(palavra,palavra2)
+     #print(palavra,palavra2)
      print("_ _ _ _ _  || _ _ _ _ _ ") 
      print()
      Jogo(letras_usadas,l2,l1,venceu,palavra,palavra2,palavrav,voltarmenu)

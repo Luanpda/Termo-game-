@@ -2,9 +2,9 @@ import os
 import jogo1palavra
 import jogo2palavras
 from colorama import Fore, Style,init
+import idioma
 
 #Arquivo princiapal, execute ele para iniciar o jogo.
-
 termo ='''         
    ████████╗███████╗██████╗░███╗░░░███╗░█████╗░
    ╚══██╔══╝██╔════╝██╔══██╗████╗░████║██╔══██╗
@@ -13,10 +13,13 @@ termo ='''
    ░░░██║░░░███████╗██║░░██║██║░╚═╝░██║╚█████╔╝
    ░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝░╚════╝░    \n\n'''
 
-idioma = "Portugês"
+
+    
 
 def mostrar_menu():
-    print(Fore.LIGHTCYAN_EX+ termo + Style.RESET_ALL +f'           Escolha um opção abaixo👇\n\n  1 Palavra |  2 palavras | 4 palavras | 5 Regras | 6 Mudar Idioma atual:{idioma}\n\n')
+    print(Fore.LIGHTCYAN_EX+ termo + Style.RESET_ALL +f'           Escolha um opção abaixo👇\n\n  1 Palavra |  2 palavras | 4 palavras | 5 Regras | 6 Mudar Idioma atual:{idioma.idioma}\n\n')
+
+    
 
 
 def inicio_jogo(opcao_escolhida): 
@@ -53,19 +56,19 @@ def escolha_opcao():
           elif opcao_escolhida == 5:
                regras()
           elif opcao_escolhida == 6:
-               print('não ta pronto')
+               
+               if idioma.idioma == 'Português':
+                    idioma.set_idioma('Inglês')
+               else:
+                    idioma.set_idioma('Português')
+               
+               
                main()
               
           else:
                op_invalida()
-     except:
-          op_invalida()
-
-
-
-
-     
-
+     except Exception as e:
+          print(e)
 
 
 def main():
